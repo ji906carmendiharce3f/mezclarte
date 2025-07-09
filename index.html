@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Pigmentos</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 20px;
+    }
+
+    #tablero {
+      display: flex;
+      height: calc(100vh - 40px); /* espacio para el título y mensaje */
+      box-sizing: border-box;
+    }
+
+    .columna {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+
+    .img-container {
+      width: 90%;
+      max-width: 150px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ccc;
+      background: white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .img-container.grayscale img {
+      filter: grayscale(100%);
+    }
+
+    .img-container img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    #mensaje {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: green;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 600px) {
+      #tablero {
+        flex-direction: column;
+      }
+
+      .columna {
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        height: auto;
+        justify-content: center;
+      }
+
+      .img-container {
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Une cada objeto con su pigmento</h1>
+<div id="tablero">
+  <div id="columna-objetos" class="columna"></div>
+  <div id="columna-pigmentos" class="columna"></div>
+</div>
+<div id="mensaje"></div>
+
+<script>
+  const objetos = [
+    { nombre: 'te', img: 'https://via.placeholder.com/100?text=Te' },
+    { nombre: 'yerba', img: 'https://via.placeholder.com/100?text=Yerba' },
+    { nombre: 'cafe', img: 'https://via.placeholder.com/100?text=Cafe' },
+    { nombre: 'zapallo', img: 'https://via.placeholder.com/100?text=Zapallo' },
+    { nombre: 'acelga', img: 'https://via.placeholder.com/100?text=Acelga' },
+    { nombre: 'remolacha', img: 'https://via.placeholder.com/100?text=Remolacha' }
+  ];
+
+  const pigmentos = objetos.map(obj => ({
+    nombre: obj.nombre,
+    img: `https://via.placeholder.com/100?text=Pigmento+${obj.nombre}`
+  }));
+
+  // Mezclar pigmentos si se desea
+  pigmentos.sort(() => 0.5 - Math.random());
+
+  const columnaObjetos = document.getElementById('columna-objetos');
+  const columnaPigmentos = document.getElementById('columna-pigmentos');
+
+  let seleccionados = [];
+  let emparejados = new Set();
+
+  function crearElemento(item) {
+    const div = document.createElement('div');
+    div.classList.add('img-container');
+    div.dataset.nombre = item.nombre;
+
+    const img = document.createElement('img');
+    img.src = item.img;
+    img.alt = item.nombre;
+
+    div.appendChild(img);
+    div.addEventListener('click', () => manejarClick(div));
+
+    return div;
+  }
+
+  function crearTablero() {
+    objetos.forEach(obj => {
+      columnaObjetos.appendChild(crearElemento(obj));
+    });
+
+    pigmentos.forEach(pig => {
+      columnaPigmentos.appendChild(crearElemento(pig));
+    });
+  }
+
+  function manejarClick(div) {
+    if (div.classList.contains('grayscale')) return;
+    if (seleccionados.length === 2) return;
+
+    seleccionados.push(div);
+    div.style.border = '2px solid blue';
+
+    if (seleccionados.length === 2) {
+      const [primero, segundo] = seleccionados;
+
+      const nombre1 = primero.dataset.nombre;
+      const nombre2 = segundo.dataset.nombre;
+
+      if (nombre1 === nombre2 && primero !== segundo) {
+        primero.classList.add('grayscale');
+        segundo.classList.add('grayscale');
+        emparejados.add(nombre1);
+        verificarVictoria();
+      }
+
+      setTimeout(() => {
+        primero.style.border = '2px solid #ccc';
+        segundo.style.border = '2px solid #ccc';
+        seleccionados = [];
+      }, 800);
+    }
+  }
+
+  function verificarVictoria() {
+    if (emparejados.size === objetos.length) {
+      document.getElementById('mensaje').textContent = "¡Has unido todas las parejas correctamente!";
+    }
+  }
+
+  crearTablero();
+</script>
+
+</body>
+</html>
