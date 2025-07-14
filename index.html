@@ -1,186 +1,475 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juego de Pigmentos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MezclArte - Jardín Nº 906 - Carmen Diharce - 3F</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+
   <style>
-    html, body {
+    .montserrat-300 {
+      font-family: "Montserrat", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    .open-sans-600 {
+      font-family: "Open Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+      font-variation-settings:
+        "wdth" 100;
+    }
+
+    body {
+      font-family: 'Aleo', sans-serif;
+      text-align: center;
       margin: 0;
-      padding: 0;
-      height: 100vh;
-      font-family: sans-serif;
-      overflow: hidden;
+      padding: 20px;
+      background: #f6f2ef;
     }
 
     h1 {
-      text-align: center;
-      margin: 10px 0;
-      font-size: 20px;
+      margin-bottom: 20px;
     }
 
-    #tablero {
+    .pantalla-inicio {
+      display: block;
       display: flex;
-      height: calc(100vh - 40px); /* espacio para el título y mensaje */
-      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: "Montserrat", sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f6f2ef;
+      text-align: center;
+    }
+
+    .seleccion {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .columna {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
+      width: 45%;
+      min-width: 200px;
+      margin: 0 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid button {
+      width: 100%;
       padding: 5px;
-      box-sizing: border-box;
+      background: none;
+      border: none;
     }
 
-    .img-container {
-      width: 90%;
-      max-width: 150px;
-      flex: 1;
+    .img-btn {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 2px solid #000;
+      border-radius: 8px;
+    }
+
+    .preview-mini {
+      width: 4em;
+      height: 4em;
+      border: 1px solid #000;
+      margin: 5px auto;
+    }
+
+    .tubo-container {
+      width: 100%;
+      max-width: 120px;
+      height: 250px;
+      border: 4px solid #c4e0f7;
+      border-radius: 10px 10px 50px 50px;
+      background: linear-gradient(to top, #c4e0f7, #c4e0f7);
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #ccc;
-      background: white;
+      flex-direction: column-reverse;
+    }
+
+    .tubo-capa {
+      width: 100%;
+    }
+
+    .acciones button {
+      font-size: 1rem;
+      flex: 1 1 40%;
+      min-width: 120px;
+      max-width: 180px;
+      border: none;
+      border-radius: 5px;
+      color: white;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      margin: 5px;
+      padding: 8px 12px;
+    font-family: "Montserrat", sans-serif;
     }
 
-    .img-container.grayscale img {
-      filter: grayscale(100%);
+    .nombre-color input {
+      padding: 8px;
+      width: 80%;
+      max-width: 300px;
+      font-size: 1rem;
+      margin: 1%;
     }
 
-    .img-container img {
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: contain;
+    #simulador {
+      display: none;
+      background: #f6f2ef;
     }
 
-    #mensaje {
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      color: green;
-      margin-top: 5px;
+    button#btn-comenzar {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    font-family: "Montserrat", sans-serif;
     }
 
-    @media (max-width: 600px) {
-      #tablero {
-        flex-direction: column;
-      }
+    button#btn-reiniciar {
+      background-color: #ac0000;
+    }
 
-      .columna {
-        flex-direction: row;
-        flex-wrap: wrap;
-        overflow-y: auto;
-        height: auto;
-        justify-content: center;
-      }
+    button#btn-agua {
+      background-color: rgb(0, 119, 255);
+    }
 
-      .img-container {
-        width: 80px;
-        height: 80px;
-        margin: 5px;
-      }
+    button#btn-guardar {
+      background-color: #0004ff;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    button#btn-ver-galeria {
+      background-color: #8828d6;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    button.btn-volver {
+      background-color: #dda200;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    button.btn-nombres {
+      background-color: #128d37;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;
+     font-family: "Montserrat", sans-serif;
+    }
+
+    button#btn-eliminar-ultimo {
+      background-color: #b30000;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
     }
   </style>
 </head>
+
 <body>
 
-<h1>Une cada objeto con su pigmento</h1>
-<div id="tablero">
-  <div id="columna-objetos" class="columna"></div>
-  <div id="columna-pigmentos" class="columna"></div>
-</div>
-<div id="mensaje"></div>
+  <!-- Pantalla de inicio -->
+  <div id="pantalla-inicio" class="pantalla-inicio">
+    <div class="col">
+      <div class="row">
+        <img src="./logo.png" alt="Logo" style="width: 40%; height: auto;" />
+      </div>
+      <div class="row">
+        <br />
+        <h4>
+          Elegí un residuo o verdura: <strong>café</strong>, <strong>saquito de té</strong>, <strong>yerba
+            mate</strong>,
+          <strong>repollo morado</strong>, <strong>cáscara de cebolla</strong>, o <strong>remolacha</strong>.<br />
+          Al tocar el botón de agua, sumás <strong>100 ml</strong> por cada toque.<br />
+          La mezcla se genera automáticamente al elegir un ingrediente de cada columna.<br />
+          Luego podés nombrar el color obtenido.
+        </h4>
+        <br />
+        <button id="btn-comenzar">COMENZAR</button>
+      </div>
+    </div>
+  </div>
 
-<script>
-  const objetos = [
-    { nombre: 'te', img: 'https://via.placeholder.com/100?text=Te' },
-    { nombre: 'yerba', img: 'https://via.placeholder.com/100?text=Yerba' },
-    { nombre: 'cafe', img: 'https://via.placeholder.com/100?text=Cafe' },
-    { nombre: 'zapallo', img: 'https://via.placeholder.com/100?text=Zapallo' },
-    { nombre: 'acelga', img: 'https://via.placeholder.com/100?text=Acelga' },
-    { nombre: 'remolacha', img: 'https://via.placeholder.com/100?text=Remolacha' }
-  ];
+  <!-- Simulador -->
+  <div id="simulador">
+    <div class="seleccion">
+      <div class="columna">
+        <div class="grid">
+          <button onclick="seleccionar('col1','cafe')"><img src="img/cafe.png" class="img-btn" /></button>
+          <button onclick="seleccionar('col1','te')"><img src="img/te.png" class="img-btn" /></button>
+          <button onclick="seleccionar('col1','yerba')"><img src="img/yerba.png" class="img-btn" /></button>
+          <button onclick="seleccionar('col1','repollo')"><img src="img/repollo.jpg" class="img-btn" /></button>
+          <button onclick="seleccionar('col1','cebolla')"><img src="img/cebolla.jpg" class="img-btn" /></button>
+          <button onclick="seleccionar('col1','remolacha')"><img src="img/remolacha.jpg" class="img-btn" /></button>
+        </div>
+        <div id="prev1" class="preview-mini"></div>
+      </div>
+      <div class="columna">
+        <div class="grid">
+          <button onclick="seleccionar('col2','cafe')"><img src="img/cafe.png" class="img-btn" /></button>
+          <button onclick="seleccionar('col2','te')"><img src="img/te.png" class="img-btn" /></button>
+          <button onclick="seleccionar('col2','yerba')"><img src="img/yerba.png" class="img-btn" /></button>
+          <button onclick="seleccionar('col2','repollo')"><img src="img/repollo.jpg" class="img-btn" /></button>
+          <button onclick="seleccionar('col2','cebolla')"><img src="img/cebolla.jpg" class="img-btn" /></button>
+          <button onclick="seleccionar('col2','remolacha')"><img src="img/remolacha.jpg" class="img-btn" /></button>
+        </div>
+        <div id="prev2" class="preview-mini"></div>
+      </div>
+    </div>
 
-  const pigmentos = objetos.map(obj => ({
-    nombre: obj.nombre,
-    img: `https://via.placeholder.com/100?text=Pigmento+${obj.nombre}`
-  }));
+    <div class="tubo-container" id="tubo"></div>
 
-  // Mezclar pigmentos si se desea
-  pigmentos.sort(() => 0.5 - Math.random());
+    <div class="acciones">
+      <button id="btn-agua" onclick="agregarAgua()">AGUA</button>
+      <button id="btn-reiniciar" onclick="reiniciar()">REINICIAR</button>
+    </div>
 
-  const columnaObjetos = document.getElementById('columna-objetos');
-  const columnaPigmentos = document.getElementById('columna-pigmentos');
+    <div class="nombre-color">
+      <input id="nombre" type="text" placeholder="Nombrá el color" /><br />
+      <button id="btn-guardar" onclick="guardarColor()">GUARDAR COLOR</button>
+      <button id="btn-ver-galeria" onclick="verGaleria()">VER GALERÍA</button>
+    </div>
+  </div>
 
-  let seleccionados = [];
-  let emparejados = new Set();
+  <!-- Galería -->
+  <div id="galeria" style="display: none; padding: 20px;">
+    <h2 style="font-family: Aleo">PALETA DE COLORES</h2>
+    <div id="contenedor-galeria" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;"></div>
+    <br />
+    <button class="btn-nombres" onclick="toggleNombres()">OCULTAR NOMBRES</button>
+    <button class="btn-volver" onclick="volverSimulador()">VOLVER</button>
+    <button id="btn-eliminar-ultimo" onclick="eliminarUltimoColor()">ELIMINAR ÚLTIMO COLOR</button>
 
-  function crearElemento(item) {
-    const div = document.createElement('div');
-    div.classList.add('img-container');
-    div.dataset.nombre = item.nombre;
+  </div>
 
-    const img = document.createElement('img');
-    img.src = item.img;
-    img.alt = item.nombre;
+  <!-- Scripts -->
+  <script>
+    const btnComenzar = document.getElementById('btn-comenzar');
 
-    div.appendChild(img);
-    div.addEventListener('click', () => manejarClick(div));
+    btnComenzar.addEventListener('click', iniciarSimulador);
+    btnComenzar.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      iniciarSimulador();
+    }, { passive: false });
 
-    return div;
-  }
+    function iniciarSimulador() {
+      document.getElementById('pantalla-inicio').style.display = 'none';
+      document.getElementById('simulador').style.display = 'block';
+    }
 
-  function crearTablero() {
-    objetos.forEach(obj => {
-      columnaObjetos.appendChild(crearElemento(obj));
-    });
+    const colores = {
+      cafe: [111, 78, 55],
+      te: [193, 68, 14],
+      yerba: [59, 122, 87],
+      repollo: [128, 0, 128],
+      cebolla: [255, 102, 0],
+      remolacha: [120, 30, 30]
+    };
 
-    pigmentos.forEach(pig => {
-      columnaPigmentos.appendChild(crearElemento(pig));
-    });
-  }
+    let sel = { col1: null, col2: null, count1: 1, count2: 1, agua: 0 };
+    let coloresGuardados = JSON.parse(localStorage.getItem("coloresGuardados") || "[]");
+    let mostrarNombres = true;
 
-  function manejarClick(div) {
-    if (div.classList.contains('grayscale')) return;
-    if (seleccionados.length === 2) return;
-
-    seleccionados.push(div);
-    div.style.border = '2px solid blue';
-
-    if (seleccionados.length === 2) {
-      const [primero, segundo] = seleccionados;
-
-      const nombre1 = primero.dataset.nombre;
-      const nombre2 = segundo.dataset.nombre;
-
-      if (nombre1 === nombre2 && primero !== segundo) {
-        primero.classList.add('grayscale');
-        segundo.classList.add('grayscale');
-        emparejados.add(nombre1);
-        verificarVictoria();
+    function seleccionar(col, ing) {
+      if (col === 'col1') {
+        if (sel.col1 === ing) sel.count1++;
+        else { sel.col1 = ing; sel.count1 = 1; }
+      } else {
+        if (sel.col2 === ing) sel.count2++;
+        else { sel.col2 = ing; sel.count2 = 1; }
       }
-
-      setTimeout(() => {
-        primero.style.border = '2px solid #ccc';
-        segundo.style.border = '2px solid #ccc';
-        seleccionados = [];
-      }, 800);
+      actualizar();
     }
-  }
 
-  function verificarVictoria() {
-    if (emparejados.size === objetos.length) {
-      document.getElementById('mensaje').textContent = "¡Has unido todas las parejas correctamente!";
+    function agregarAgua() {
+      sel.agua += 100;
+      if (sel.agua > 500) sel.agua = 500;
+      actualizar();
     }
-  }
 
-  crearTablero();
-</script>
+    function reiniciar() {
+      sel = { col1: null, col2: null, count1: 1, count2: 1, agua: 0 };
+      document.getElementById("nombre").value = "";
+      actualizar();
+    }
 
+    function mezclar(a, b, w1 = 1, w2 = 1) {
+      return a.map((_, i) => Math.round((a[i] * w1 + b[i] * w2) / (w1 + w2)));
+    }
+
+    function aclarar(rgb, agua) {
+      const f = Math.min(agua / 500, 1);
+      return rgb.map(c => Math.round(c + (255 - c) * 0.2 * f));
+    }
+
+    function rgbString(arr) {
+      return `rgb(${arr[0]},${arr[1]},${arr[2]})`;
+    }
+
+    function actualizar() {
+      document.getElementById("prev1").style.backgroundColor = sel.col1 ? rgbString(colores[sel.col1]) : "#fff";
+      document.getElementById("prev2").style.backgroundColor = sel.col2 ? rgbString(colores[sel.col2]) : "#fff";
+
+      const tubo = document.getElementById("tubo");
+      tubo.innerHTML = "";
+
+      if (sel.col1 && sel.col2) {
+        const base = mezclar(colores[sel.col1], colores[sel.col2], sel.count1, sel.count2);
+        const final = aclarar(base, sel.agua);
+        const capa = document.createElement("div");
+        capa.className = "tubo-capa";
+        capa.style.height = "100%";
+        capa.style.backgroundColor = rgbString(final);
+        tubo.appendChild(capa);
+      }
+    }
+
+
+
+    function oscurecerColor(rgb, veces) {
+      const factor = Math.min(1, 0.15 * (veces - 1));
+      return rgb.map(c => Math.max(0, Math.round(c * (1 - factor))));
+    }
+
+    function guardarColor() {
+      if (!(sel.col1 && sel.col2)) return;
+      const color1 = oscurecerColor(colores[sel.col1], sel.count1);
+      const color2 = oscurecerColor(colores[sel.col2], sel.count2);
+      const base = mezclar(color1, color2);
+
+      const final = aclarar(base, sel.agua);
+      const nombre = document.getElementById("nombre").value || "Sin nombre";
+
+      coloresGuardados.push({ rgb: final, nombre });
+      localStorage.setItem("coloresGuardados", JSON.stringify(coloresGuardados));
+      document.getElementById("nombre").value = "";
+      verGaleria();
+    }
+
+    function eliminarUltimoColor() {
+      if (coloresGuardados.length === 0) {
+        alert("No hay colores para eliminar.");
+        return;
+      }
+      if (confirm("¿Estás seguro que querés eliminar el último color guardado?")) {
+        coloresGuardados.pop();
+        localStorage.setItem("coloresGuardados", JSON.stringify(coloresGuardados));
+        renderGaleria();
+      }
+    }
+
+
+    function verGaleria() {
+      document.getElementById("simulador").style.display = "none";
+      document.getElementById("galeria").style.display = "block";
+      renderGaleria();
+    }
+
+    function volverSimulador() {
+      document.getElementById("galeria").style.display = "none";
+      document.getElementById("simulador").style.display = "block";
+    }
+
+    function renderGaleria() {
+      const cont = document.getElementById("contenedor-galeria");
+      cont.innerHTML = "";
+      cont.style.display = "grid";
+      cont.style.gridTemplateColumns = "repeat(5, 1fr)";
+      cont.style.gap = "1px";
+
+      // Recorrer coloresGuardados en orden inverso para mostrar el más reciente primero
+      for (let i = coloresGuardados.length - 1; i >= 0; i--) {
+        const color = coloresGuardados[i];
+        const item = document.createElement("div");
+        item.style.aspectRatio = "1 / 1";
+        item.style.backgroundColor = rgbString(color.rgb);
+        item.style.border = "1px solid #000";
+        item.style.borderRadius = "4px";
+        item.style.display = "flex";
+        item.style.flexDirection = "column";
+        item.style.alignItems = "center";
+        item.style.justifyContent = "flex-end";
+        item.style.boxSizing = "border-box";
+        item.style.padding = "4px";
+
+        const nombre = document.createElement("div");
+        nombre.innerText = mostrarNombres ? color.nombre : "";
+        nombre.style.fontSize = "0.75em";
+        nombre.style.textAlign = "center";
+        nombre.style.width = "100%";
+
+        item.appendChild(nombre);
+        cont.appendChild(item);
+      }
+    }
+
+    function toggleNombres() {
+      mostrarNombres = !mostrarNombres;
+      renderGaleria();
+    }
+
+    actualizar();
+  </script>
 </body>
+
 </html>
