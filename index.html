@@ -17,255 +17,250 @@
     rel="stylesheet">
 
   <style>
-    .montserrat-300 {
-      font-family: "Montserrat", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 300;
-      font-style: normal;
-    }
+ .montserrat-300 {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
 
-    .open-sans-600 {
-      font-family: "Open Sans", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 600;
-      font-style: normal;
-      font-variation-settings:
-        "wdth" 100;
-    }
+.open-sans-600 {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
 
-    html,
-    body {
-      font-family: 'Aleo', sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-      background: #f6f2ef;
-      overflow: hidden;
-      height: 100%;
-    }
+html,
+body {
+  font-family: 'Aleo', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: #f6f2ef;
+  height: 100%;
+}
 
+/* Centramos todas las pantallas principales */
+#pantalla-inicio,
+#simulador,
+#galeria {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
 
-    h1 {
-      margin-bottom: 20px;
-    }
+h1 {
+  margin-bottom: 20px;
+}
 
-    .pantalla-inicio {
-      display: block;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: "Montserrat", sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f6f2ef;
-      text-align: center;
-    }
+.pantalla-inicio {
+  font-family: "Montserrat", sans-serif;
+  background: #f6f2ef;
+  margin: 0;
+}
 
-    .seleccion {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .columna {
-      width: 45%;
-      min-width: 200px;
-      margin: 0 10px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 4px;
-
-    }
-
-    .grid button {
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      background: none;
-      border: none;
-    }
+.seleccion {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
 
-    .img-btn {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border: 2px solid #000;
-      border-radius: 8px;
-    }
+.columna {
+  flex: 1 1 220px;
+  max-width: 250px;
+  text-align: center;
+}
 
-    .preview-mini {
-      width: 4em;
-      height: 4em;
-      border: 1px solid #000;
-      margin: 5px auto;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
 
-    .tubo-container {
-      width: 100%;
-      max-width: 120px;
-      height: 250px;
-      border: 4px solid #c4e0f7;
-      border-radius: 10px 10px 50px 50px;
-      background: linear-gradient(to top, #c4e0f7, #c4e0f7);
-      overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
-      margin: 20px auto;
-      display: flex;
-      flex-direction: column-reverse;
-    }
+.grid button {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+}
 
-    .tubo-capa {
-      width: 100%;
-    }
+.img-btn {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid #000;
+  border-radius: 8px;
+}
 
-    .acciones button {
-      font-size: 1rem;
-      flex: 1 1 40%;
-      min-width: 120px;
-      max-width: 180px;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      margin: 5px;
-      padding: 8px 12px;
-      font-family: "Montserrat", sans-serif;
-    }
+.preview-mini {
+  width: 4em;
+  height: 4em;
+  border: 1px solid #000;
+  margin: 5px auto;
+}
 
-    .nombre-color input {
-      padding: 8px;
-      width: 80%;
-      max-width: 300px;
-      font-size: 1rem;
-      margin: 1%;
-    }
+.tubo-container {
+  width: 100%;
+  max-width: 120px;
+  height: 250px;
+  border: 4px solid #c4e0f7;
+  border-radius: 10px 10px 50px 50px;
+  background: linear-gradient(to top, #c4e0f7, #c4e0f7);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
 
-    #simulador {
-      display: none;
-      background: #f6f2ef;
-    }
+.tubo-capa {
+  width: 100%;
+}
 
-    button#btn-comenzar {
-      font-size: 1.2rem;
-      padding: 10px 20px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-    }
+.acciones button {
+  font-size: 1rem;
+  flex: 1 1 40%;
+  min-width: 120px;
+  max-width: 180px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+  padding: 8px 12px;
+  font-family: "Montserrat", sans-serif;
+}
 
-    button#btn-reiniciar {
-      background-color: #ac0000;
-    }
+.nombre-color input {
+  padding: 8px;
+  width: 80%;
+  max-width: 300px;
+  font-size: 1rem;
+  margin: 1%;
+}
 
-    button#btn-agua {
-      background-color: rgb(0, 119, 255);
-    }
+button#btn-comenzar {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
 
-    button#btn-guardar {
-      background-color: #0004ff;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin: 5px;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-    }
+button#btn-reiniciar {
+  background-color: #ac0000;
+}
 
-    button#btn-ver-galeria {
-      background-color: #8828d6;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin: 5px;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-    }
+button#btn-agua {
+  background-color: rgb(0, 119, 255);
+}
 
-    button.btn-volver {
-      background-color: #dda200;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin: 5px;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-    }
+button#btn-guardar {
+  background-color: #0004ff;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
 
-    button.btn-nombres {
-      background-color: #128d37;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin: 5px;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-    }
+button#btn-ver-galeria {
+  background-color: #8828d6;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
 
-    button#btn-eliminar-ultimo {
-      background-color: #b30000;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin: 5px;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-    }
+button.btn-volver {
+  background-color: #dda200;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
 
-    @media (max-width: 600px) {
-      .seleccion {
-        flex-wrap: nowrap;
-        flex-direction: row;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 5px;
-      }
+button.btn-nombres {
+  background-color: #128d37;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
 
-      .columna {
-        width: 45%;
-        margin: 0;
-      }
+button#btn-eliminar-ultimo {
+  background-color: #b30000;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
 
-      .grid button {
-        padding: 0;
-      }
-        .grid {
-    gap: 0; 
+/* Responsive: ajustar para pantallas pequeñas */
+@media (max-width: 600px) {
+  .seleccion {
+    flex-wrap: nowrap;
+    flex-direction: row; /* Mantiene columnas una al lado de otra */
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
   }
 
- 
+  .columna {
+    width: 45%;
+    margin: 0;
+  }
 
-      .img-btn {
-        width: 40px;
-        height: 40px;
-      }
+  .grid {
+    gap: 2px;
+  }
 
-      .preview-mini {
-        width: 3em;
-        height: 3em;
-      }
+  .img-btn {
+    width: 40px;
+    height: 40px;
+  }
 
-    }
+  .preview-mini {
+    width: 3em;
+    height: 3em;
+  }
+}
+
   </style>
 </head>
 
