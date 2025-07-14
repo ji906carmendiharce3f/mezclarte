@@ -71,18 +71,20 @@
       min-width: 200px;
       margin: 0 10px;
     }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px; /* achica el espacio entre imágenes */
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
+.grid button {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+}
 
-    .grid button {
-      width: 100%;
-      padding: 5px;
-      background: none;
-      border: none;
-    }
 
     .img-btn {
       width: 60px;
@@ -223,6 +225,40 @@
       cursor: pointer;
       font-family: "Montserrat", sans-serif;
     }
+
+    @media (max-width: 600px) {
+  .seleccion {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .columna {
+    width: 45%;
+    margin: 0;
+  }
+
+  .grid button {
+    padding: 0;
+  }
+
+  .img-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .preview-mini {
+    width: 3em;
+    height: 3em;
+  }
+
+  .grid {
+    gap: 2px; /* aún menos espacio entre imágenes en pantallas chicas */
+  }
+}
+
   </style>
 </head>
 
