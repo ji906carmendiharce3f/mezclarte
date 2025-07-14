@@ -232,7 +232,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 10px;
+    gap: 5px;
   }
 
   .columna {
@@ -255,7 +255,7 @@
   }
 
   .grid {
-    gap: 2px; /* aún menos espacio entre imágenes en pantallas chicas */
+    gap: 1px; 
   }
 }
 
@@ -332,8 +332,11 @@
     <h2 style="font-family: Aleo">PALETA DE COLORES</h2>
     <div id="contenedor-galeria" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;"></div>
     <br />
-    <button class="btn-nombres" onclick="toggleNombres()">OCULTAR NOMBRES</button>
+    <div class="row">
+<button class="btn-nombres" onclick="toggleNombres()">OCULTAR NOMBRES</button>
     <button class="btn-volver" onclick="volverSimulador()">VOLVER</button>
+    </div>
+    
     <button id="btn-eliminar-ultimo" onclick="eliminarUltimoColor()">ELIMINAR ÚLTIMO COLOR</button>
 
   </div>
