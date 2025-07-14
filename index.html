@@ -33,13 +33,17 @@
         "wdth" 100;
     }
 
+    html,
     body {
       font-family: 'Aleo', sans-serif;
       text-align: center;
       margin: 0;
       padding: 20px;
       background: #f6f2ef;
+      overflow: hidden;
+      height: 100%;
     }
+
 
     h1 {
       margin-bottom: 20px;
@@ -71,19 +75,21 @@
       min-width: 200px;
       margin: 0 10px;
     }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px; /* achica el espacio entre imágenes */
-}
 
-.grid button {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+
+    }
+
+    .grid button {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+    }
 
 
     .img-btn {
@@ -131,7 +137,7 @@
       cursor: pointer;
       margin: 5px;
       padding: 8px 12px;
-    font-family: "Montserrat", sans-serif;
+      font-family: "Montserrat", sans-serif;
     }
 
     .nombre-color input {
@@ -155,7 +161,7 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-    font-family: "Montserrat", sans-serif;
+      font-family: "Montserrat", sans-serif;
     }
 
     button#btn-reiniciar {
@@ -211,7 +217,7 @@
       padding: 8px 12px;
       margin: 5px;
       cursor: pointer;
-     font-family: "Montserrat", sans-serif;
+      font-family: "Montserrat", sans-serif;
     }
 
     button#btn-eliminar-ultimo {
@@ -227,38 +233,39 @@
     }
 
     @media (max-width: 600px) {
-  .seleccion {
-    flex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 5px;
+      .seleccion {
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 5px;
+      }
+
+      .columna {
+        width: 45%;
+        margin: 0;
+      }
+
+      .grid button {
+        padding: 0;
+      }
+        .grid {
+    gap: 0; 
   }
 
-  .columna {
-    width: 45%;
-    margin: 0;
-  }
+ 
 
-  .grid button {
-    padding: 0;
-  }
+      .img-btn {
+        width: 40px;
+        height: 40px;
+      }
 
-  .img-btn {
-    width: 40px;
-    height: 40px;
-  }
+      .preview-mini {
+        width: 3em;
+        height: 3em;
+      }
 
-  .preview-mini {
-    width: 3em;
-    height: 3em;
-  }
-
-  .grid {
-    gap: 1px; 
-  }
-}
-
+    }
   </style>
 </head>
 
@@ -333,10 +340,10 @@
     <div id="contenedor-galeria" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;"></div>
     <br />
     <div class="row">
-<button class="btn-nombres" onclick="toggleNombres()">OCULTAR NOMBRES</button>
-    <button class="btn-volver" onclick="volverSimulador()">VOLVER</button>
+      <button class="btn-nombres" onclick="toggleNombres()">OCULTAR NOMBRES</button>
+      <button class="btn-volver" onclick="volverSimulador()">VOLVER</button>
     </div>
-    
+
     <button id="btn-eliminar-ultimo" onclick="eliminarUltimoColor()">ELIMINAR ÚLTIMO COLOR</button>
 
   </div>
